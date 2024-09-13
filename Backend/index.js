@@ -7,12 +7,11 @@ import jobRoutes from './Routes/JobRoutes.js';
 import path from 'path';
 import setupSocketIO from './socket.js';
 
-
-const app = express();
-
 dotenv.config({
   path: './.env'
 });
+
+const app = express();
 
 app.use(cors({
   origin: '*',
@@ -22,9 +21,9 @@ app.use(cors({
 }));
 app.options('*', cors());
 
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 const { server, io } = setupSocketIO(app);
 
 // API Routes
@@ -48,4 +47,7 @@ connectDB()
   .catch((err) => {
     console.log('MONGO DB connection failed !!!', err);
   });
-export { io };
+
+// Export both server and io
+export default server;  // For Vercel
+export { io };         // For other parts of the app
