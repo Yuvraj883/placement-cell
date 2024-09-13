@@ -31,7 +31,7 @@ function App() {
         const userId = localStorage.getItem('userId');
 
         if (token && userId) {
-          const response = await axios.get(`https://placement-cell-iczn.onrender.com/api/users/${userId}`, {
+          const response = await axios.get(`https://placement-cell-msit-api.vercel.app/api/users/${userId}`, {
             headers: { Authorization: `Bearer ${token}` }
           });
 
@@ -79,7 +79,7 @@ function App() {
     return <div>Loading...</div>;
   }
 
-  
+
   const showFooter = [
     '/home',
     '/admin',

@@ -26,14 +26,14 @@ const SignIn = () => {
   const handleSignIn = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post('https://placement-cell-iczn.onrender.com/api/users/sign-in', { email, password });
+      const { data } = await axios.post('https://placement-cell-msit-api.vercel.app/api/users/sign-in', { email, password });
       const { _id, token, isAdmin } = data;
 
       if (_id) {
         localStorage.setItem('userId', _id);
         localStorage.setItem('token', token);
         localStorage.setItem('role', isAdmin ? 'admin' : 'user');
-        toast.success('Sign In Successful'); 
+        toast.success('Sign In Successful');
         if (isAdmin) {
           navigate('/admin');
         } else {
@@ -41,7 +41,7 @@ const SignIn = () => {
         }
       } else {
         console.error('User ID is missing in the response');
-        toast.error('Sign In failed. Please try again.'); 
+        toast.error('Sign In failed. Please try again.');
       }
     } catch (error) {
       setError(error.response?.data?.message || 'An error occurred');
@@ -162,9 +162,9 @@ const SignIn = () => {
             )}
           </form>
           <Box mt={2}>
-            <Typography variant='body2' color='textSecondary' align='center'>
+            <Typography variant='body2' component='div' color='textSecondary' align='center'>
               <div color='inherit' href='/sign-up' style={{ color: '#BB86FC', textDecoration: 'none' }}> {/* Purple color */}
-                Don't have an account? 
+                Don't have an account?
               </div>
             </Typography>
             <Typography variant='body2' align='center' style={{ marginTop: '16px' }}>
@@ -184,14 +184,14 @@ const SignIn = () => {
                 onMouseOver={(e) => {
                   e.currentTarget.style.transform = 'scale(1.05)';
                   e.currentTarget.style.boxShadow = '0 6px 12px rgba(0, 0, 0, 0.4)';
-                  e.currentTarget.style.color = 'white'; 
-                  e.currentTarget.style.background = '#9F62D8'; 
+                  e.currentTarget.style.color = 'white';
+                  e.currentTarget.style.background = '#9F62D8';
                 }}
                 onMouseOut={(e) => {
                   e.currentTarget.style.transform = 'scale(1)';
                   e.currentTarget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.3)';
-                  e.currentTarget.style.color = 'white'; 
-                  e.currentTarget.style.background = 'grey'; 
+                  e.currentTarget.style.color = 'white';
+                  e.currentTarget.style.background = 'grey';
                 }}
               >
                 Sign Up
