@@ -37,7 +37,7 @@ const SignUp = () => {
     contactNumber: '',
     degree: 'Bachelor of Technology',
     course: '',
-    classes: '', 
+    classes: '',
     yearOfPassing: '',
     cgpa: '',
     twelfthPercentage: '',
@@ -84,6 +84,7 @@ const SignUp = () => {
           'Content-type': 'application/json',
         },
       };
+      //pushing for deployement
 
       const { data } = await axios.post('https://placement-cell-iczn.onrender.com/api/users/sign-up', formData, config);
       const { _id, token, ...rest } = data;
