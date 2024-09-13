@@ -15,12 +15,12 @@ dotenv.config({
 });
 
 app.use(cors({
-  origin: 'http://localhost:3000', 
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
-app.options('*', cors()); 
+app.options('*', cors());
 
 
 app.use(express.json());
@@ -29,7 +29,7 @@ const { server, io } = setupSocketIO(app);
 
 // API Routes
 app.use('/api/users', userRoutes);
-app.use('/api', jobRoutes); 
+app.use('/api', jobRoutes);
 
 // Serve static files
 const __dirname = path.resolve();
