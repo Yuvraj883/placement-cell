@@ -11,12 +11,14 @@ const JobPostings = () => {
     const fetchJobPostings = async () => {
       try {
         const response = await axios.get('/api/jobs');
-        setJobPostings(response.data || []);
+        console.log(response.data); // Log the response to check its structure
+        // Ensure jobPostings is always an array
+        setJobPostings(Array.isArray(response.data) ? response.data : response.data.jobs || []);
       } catch (error) {
         console.error('Error fetching job postings:', error);
         setError('Failed to load job postings. Please try again later.');
       } finally {
-        setLoading(false); // Stop loading once data is fetched or an error occurs
+        setLoading(false);
       }
     };
 
@@ -28,20 +30,19 @@ const JobPostings = () => {
       <h2 className="text-4xl font-extrabold mb-8 text-center text-gray-900 relative">
         <span className="absolute inset-0 flex items-center justify-center">
           <div className="w-full h-20 bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-500 opacity-100" />
-
         </span>
         <span className="relative text-white font-serif">Latest Jobs</span>
       </h2>
       {loading ? (
-        <p className="text-center text-gray-500">Loading job postings...</p> // Display a loading message while fetching data
+        <p className="text-center text-gray-500">Loading job postings...</p>
       ) : error ? (
-        <p className="text-center text-red-500">{error}</p> // Display an error message if fetching fails
+        <p className="text-center text-red-500">{error}</p>
       ) : jobPostings.length === 0 ? (
-        <p className="text-center text-gray-500">No job postings available.</p> // Handle case when no jobs are available
+        <p className="text-center text-gray-500">No job postings available.</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {jobPostings?.map((job) => (
-            <JobCard key={job?._id} job={job} /> // Use job._id as key
+          {Array.isArray(jobPostings) && jobPostings.map((job) => (
+            <JobCard key={job._id} job={job} />
           ))}
         </div>
       )}
