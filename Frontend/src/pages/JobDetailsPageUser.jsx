@@ -30,7 +30,7 @@ const JobDetailsPageUser = () => {
 
 
   useEffect(() => {
-    axios.get(`https://placement-cell-iczn.onrender.com/api/jobs/${jobId}`)
+    axios.get(`https://placement-cell-msit-api.vercel.app/api/jobs/${jobId}`)
       .then(response => {
         setJob(response.data.job);
       })
@@ -123,7 +123,7 @@ const JobDetailsPageUser = () => {
   <Typography variant="h6" gutterBottom>
     Shortlisted Students:
   </Typography>
-  
+
   {/* Check if shortlistedStudents is a string (URL link) */}
   {typeof job.shortlistedStudents === 'string' ? (
     <Typography variant="body1" color="primary">
@@ -150,7 +150,7 @@ const JobDetailsPageUser = () => {
 </div>
 
 
- 
+
 
           </div>
         </div>
