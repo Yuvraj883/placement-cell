@@ -11,7 +11,7 @@ const JobPostings = () => {
     const fetchJobPostings = async () => {
       try {
         const response = await axios.get('/api/jobs');
-        setJobPostings(response.data);
+        setJobPostings(response.data || []);
       } catch (error) {
         console.error('Error fetching job postings:', error);
         setError('Failed to load job postings. Please try again later.');
