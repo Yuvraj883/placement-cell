@@ -1,18 +1,18 @@
-import { useState, useEffect } from 'react';
-import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-import IconButton from '@mui/material/IconButton';
-import SearchIcon from '@mui/icons-material/Search';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Ensure axios is imported
-import logo from '../images/logo-pc.png';
-import ChecklistIcon from '@mui/icons-material/Checklist';
+import { useState, useEffect } from 'react'
+import { styled, alpha } from '@mui/material/styles'
+import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
+import InputBase from '@mui/material/InputBase'
+import IconButton from '@mui/material/IconButton'
+import SearchIcon from '@mui/icons-material/Search'
+import ToggleButton from '@mui/material/ToggleButton'
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios' // Ensure axios is imported
+import logo from '../images/logo-pc.png'
+import ChecklistIcon from '@mui/icons-material/Checklist'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -25,7 +25,7 @@ const Search = styled('div')(({ theme }) => ({
   marginRight: theme.spacing(2),
   marginLeft: theme.spacing(3),
   width: '50%',
-}));
+}))
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
@@ -35,7 +35,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-}));
+}))
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: theme.palette.text.primary,
@@ -47,7 +47,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
   },
-}));
+}))
 
 const LogoutButton = styled('button')(({ theme }) => ({
   backgroundColor: '#D32F2F', // Red background
@@ -60,7 +60,7 @@ const LogoutButton = styled('button')(({ theme }) => ({
   '&:hover': {
     backgroundColor: '#B71C1C', // Darker red on hover
   },
-}));
+}))
 const NotifyButton = styled('button')(({ theme }) => ({
   backgroundColor: '#f50057', // Same color as the Log Out button (adjust as needed)
   color: '#fff',
@@ -73,68 +73,73 @@ const NotifyButton = styled('button')(({ theme }) => ({
   '&:hover': {
     backgroundColor: '#c51162', // Darker shade on hover
   },
-}));
+}))
 
 const AdminNav = ({ currentVal }) => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchType, setSearchType] = useState('jobs');
-  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState('')
+  const [searchType, setSearchType] = useState('jobs')
+  const navigate = useNavigate()
 
   useEffect(() => {
-    const savedSearchType = localStorage.getItem('searchType') || 'jobs';
-    setSearchType(savedSearchType);
-  }, []);
+    const savedSearchType = localStorage.getItem('searchType') || 'jobs'
+    setSearchType(savedSearchType)
+  }, [])
 
   useEffect(() => {
     if (currentVal === 'student') {
-      axios.get('https://placement-cell-iczn.onrender.com/api/users/find')
-        .then(response => {
+      axios
+        .get('https://placement-cell-msit-api.vercel.app/api/users/find')
+        .then((response) => {
           // Handle user data
         })
-        .catch(error => {
-          console.error('Error fetching users:', error);
-        });
+        .catch((error) => {
+          console.error('Error fetching users:', error)
+        })
     } else if (currentVal === 'company') {
-      axios.get('https://placement-cell-iczn.onrender.com/api/jobs')
-        .then(response => {
+      axios
+        .get('https://placement-cell-msit-api.vercel.app/api/jobs')
+        .then((response) => {
           // Handle job data
         })
-        .catch(error => {
-          console.error('Error fetching jobs:', error);
-        });
+        .catch((error) => {
+          console.error('Error fetching jobs:', error)
+        })
     }
-  }, [currentVal]);
+  }, [currentVal])
 
   const handleSearch = () => {
     if (searchQuery.trim()) {
-      const route = searchType === 'jobs' ? `/search?query=${encodeURIComponent(searchQuery)}` : `/admin/user-search?query=${encodeURIComponent(searchQuery)}`;
-      navigate(route);
+      const route =
+        searchType === 'jobs'
+          ? `/search?query=${encodeURIComponent(searchQuery)}`
+          : `/admin/user-search?query=${encodeURIComponent(searchQuery)}`
+      navigate(route)
     }
-  };
+  }
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      handleSearch();
+      handleSearch()
     }
-  };
+  }
 
   const handleSearchTypeChange = (event, newSearchType) => {
     if (newSearchType) {
-      setSearchType(newSearchType);
-      localStorage.setItem('searchType', newSearchType);
+      setSearchType(newSearchType)
+      localStorage.setItem('searchType', newSearchType)
     }
-  };
+  }
 
   const logOut = () => {
-    localStorage.clear();
-    navigate('/sign-in');
-  };
+    localStorage.clear()
+    navigate('/sign-in')
+  }
   const handleNotifyClick = () => {
-    navigate('/notify');
-  };
+    navigate('/notify')
+  }
   const handleShortlistedClick = () => {
-    navigate('/shortlisted-students'); // Route to the page that manages shortlisted students
-  };
+    navigate('/shortlisted-students') // Route to the page that manages shortlisted students
+  }
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static' sx={{ backgroundColor: '#FFF' }}>
@@ -146,7 +151,7 @@ const AdminNav = ({ currentVal }) => {
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
             <Link to='/admin'>
-            <img className='h-24 mx-2' src={logo} alt="logo" />
+              <img className='h-24 mx-2' src={logo} alt='logo' />
             </Link>
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
@@ -155,7 +160,9 @@ const AdminNav = ({ currentVal }) => {
                 <SearchIcon sx={{ color: '#000' }} />
               </SearchIconWrapper>
               <StyledInputBase
-                placeholder={searchType === 'jobs' ? 'Search Jobs...' : 'Search Users...'}
+                placeholder={
+                  searchType === 'jobs' ? 'Search Jobs...' : 'Search Users...'
+                }
                 inputProps={{ 'aria-label': 'search' }}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -174,8 +181,7 @@ const AdminNav = ({ currentVal }) => {
                   backgroundColor: searchType === 'jobs' ? '#FFA500' : '#FFF',
                   color: searchType === 'jobs' ? '#FFF' : '#000',
                   border: '1px solid #FFA500',
-                  fontWeight:'bold'
-
+                  fontWeight: 'bold',
                 }}
               >
                 Companies
@@ -186,7 +192,7 @@ const AdminNav = ({ currentVal }) => {
                   backgroundColor: searchType === 'users' ? '#FFA500' : '#FFF',
                   color: searchType === 'users' ? '#FFF' : '#000',
                   border: '1px solid #FFA500',
-                  fontWeight:'bold'
+                  fontWeight: 'bold',
                 }}
               >
                 Students
@@ -195,16 +201,18 @@ const AdminNav = ({ currentVal }) => {
           </Box>
 
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <IconButton color="inherit" onClick={handleShortlistedClick}>
+            <IconButton color='inherit' onClick={handleShortlistedClick}>
               <ChecklistIcon sx={{ color: '#000' }} />
             </IconButton>
-          <NotifyButton onClick={handleNotifyClick} sx={{marginRight:4}}>🔔</NotifyButton>
+            <NotifyButton onClick={handleNotifyClick} sx={{ marginRight: 4 }}>
+              🔔
+            </NotifyButton>
             <LogoutButton onClick={logOut}>Log Out</LogoutButton>
           </Box>
         </Toolbar>
       </AppBar>
     </Box>
-  );
-};
+  )
+}
 
-export default AdminNav;
+export default AdminNav

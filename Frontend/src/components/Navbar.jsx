@@ -87,7 +87,7 @@
 //
 //    fetchStoredNotifications();
 //
-//    const socket = io('https://placement-cell-iczn.onrender.com/');
+//    const socket = io('https://placement-cell-msit-api.vercel.app/');
 //
 //    socket.on('connect', () => {
 //      console.log('Socket connected:', socket.id);
@@ -375,26 +375,26 @@
 //
 //export default Navbar;
 //
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-import Badge from '@mui/material/Badge';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
-import SearchIcon from '@mui/icons-material/Search';
-import axios from 'axios';
-import io from 'socket.io-client';
-import logo from '../images/logo-pc.png';
+import React, { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { styled, alpha } from '@mui/material/styles'
+import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import InputBase from '@mui/material/InputBase'
+import Badge from '@mui/material/Badge'
+import MenuItem from '@mui/material/MenuItem'
+import Menu from '@mui/material/Menu'
+import AccountCircle from '@mui/icons-material/AccountCircle'
+import MailIcon from '@mui/icons-material/Mail'
+import NotificationsIcon from '@mui/icons-material/Notifications'
+import MoreIcon from '@mui/icons-material/MoreVert'
+import SearchIcon from '@mui/icons-material/Search'
+import axios from 'axios'
+import io from 'socket.io-client'
+import logo from '../images/logo-pc.png'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -409,7 +409,7 @@ const Search = styled('div')(({ theme }) => ({
     width: '60%',
     marginLeft: '10%',
   },
-}));
+}))
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
@@ -419,7 +419,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-}));
+}))
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
@@ -433,49 +433,53 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
       width: '100%',
     },
   },
-}));
+}))
 
 const Navbar = () => {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [newJobsCount, setNewJobsCount] = useState(0);
-  const [notifications, setNotifications] = useState([]);
-  const [notificationOpen, setNotificationOpen] = useState(false);
-  const [clickCount, setClickCount] = useState(0);
-  const [lastNotificationClickTime, setLastNotificationClickTime] = useState(() => {
-    const storedTime = localStorage.getItem('lastNotificationClickTime');
-    return storedTime ? parseInt(storedTime, 10) : null;
-  });
-  const navigate = useNavigate();
-  const userId = localStorage.getItem('userId')?.trim();
+  const [anchorEl, setAnchorEl] = useState(null)
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [newJobsCount, setNewJobsCount] = useState(0)
+  const [notifications, setNotifications] = useState([])
+  const [notificationOpen, setNotificationOpen] = useState(false)
+  const [clickCount, setClickCount] = useState(0)
+  const [lastNotificationClickTime, setLastNotificationClickTime] = useState(
+    () => {
+      const storedTime = localStorage.getItem('lastNotificationClickTime')
+      return storedTime ? parseInt(storedTime, 10) : null
+    }
+  )
+  const navigate = useNavigate()
+  const userId = localStorage.getItem('userId')?.trim()
 
   useEffect(() => {
     const fetchStoredNotifications = async () => {
       try {
-        const response = await axios.get(`/api/notifications/${userId}`);
-        const unreadNotifications = response.data.filter(notification => !notification.isRead);
-        setNotifications(response.data);
-        setNewJobsCount(unreadNotifications.length);
+        const response = await axios.get(`/api/notifications/${userId}`)
+        const unreadNotifications = response.data.filter(
+          (notification) => !notification.isRead
+        )
+        setNotifications(response.data)
+        setNewJobsCount(unreadNotifications.length)
       } catch (error) {
-        console.error('Error fetching notifications:', error);
+        console.error('Error fetching notifications:', error)
       }
-    };
+    }
 
-    fetchStoredNotifications();
+    fetchStoredNotifications()
 
-    const socket = io('https://placement-cell-iczn.onrender.com/');
+    const socket = io('https://placement-cell-msit-api.vercel.app/')
 
     socket.on('connect', () => {
-      console.log('Socket connected:', socket.id);
-    });
+      console.log('Socket connected:', socket.id)
+    })
 
     socket.on('disconnect', () => {
-      console.log('Socket disconnected');
-    });
+      console.log('Socket disconnected')
+    })
 
     socket.on('newJob', (job) => {
-      console.log('New job received:', job);
+      console.log('New job received:', job)
       const newNotification = {
         userId,
         jobId: job._id,
@@ -483,63 +487,69 @@ const Navbar = () => {
         title: job.jobTitle,
         message: `A new job "${job.jobTitle}" has been posted by ${job.companyName}.`,
         createdAt: new Date(),
-      };
-      setNotifications((prevNotifications) => [...prevNotifications, { company: job.companyName, title: job.jobTitle }]);
-      setNewJobsCount((prevCount) => prevCount + 1);
-    });
+      }
+      setNotifications((prevNotifications) => [
+        ...prevNotifications,
+        { company: job.companyName, title: job.jobTitle },
+      ])
+      setNewJobsCount((prevCount) => prevCount + 1)
+    })
     socket.on('notification', (notification) => {
-      setNotifications(prevNotifications => [...prevNotifications, notification]);
-      setNewJobsCount(prevCount => prevCount + 1);
-    });
+      setNotifications((prevNotifications) => [
+        ...prevNotifications,
+        notification,
+      ])
+      setNewJobsCount((prevCount) => prevCount + 1)
+    })
 
     return () => {
-      socket.disconnect();
-    };
-  }, []);
+      socket.disconnect()
+    }
+  }, [])
 
   const handleNotificationClick = () => {
-    setNotificationOpen(!notificationOpen);
-    setClickCount(prevCount => prevCount + 1);
-  };
+    setNotificationOpen(!notificationOpen)
+    setClickCount((prevCount) => prevCount + 1)
+  }
 
   const handleMarkAllAsRead = async () => {
     try {
-      await axios.delete(`/api/notifications/${userId}`);
-      setNotifications([]);
-      setNewJobsCount(0);
+      await axios.delete(`/api/notifications/${userId}`)
+      setNotifications([])
+      setNewJobsCount(0)
     } catch (error) {
-      console.error('Error marking notifications as read and deleting:', error);
+      console.error('Error marking notifications as read and deleting:', error)
     }
-  };
+  }
 
   const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
+    setSearchQuery(event.target.value)
+  }
 
   const handleSearchSubmit = (event) => {
     if (event.key === 'Enter') {
-      navigate(`/search?query=${searchQuery}`);
+      navigate(`/search?query=${searchQuery}`)
     }
-  };
+  }
 
   const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+    setAnchorEl(event.currentTarget)
+  }
 
   const handleMenuClose = () => {
-    setAnchorEl(null);
-    setMobileMoreAnchorEl(null);
-  };
+    setAnchorEl(null)
+    setMobileMoreAnchorEl(null)
+  }
 
   const logOut = () => {
-    localStorage.clear();
-    navigate('/sign-in');
-  };
+    localStorage.clear()
+    navigate('/sign-in')
+  }
 
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const isMenuOpen = Boolean(anchorEl)
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
 
-  const menuId = 'primary-search-account-menu';
+  const menuId = 'primary-search-account-menu'
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -556,12 +566,19 @@ const Navbar = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={() => { navigate('/home/user-profile'); handleMenuClose(); }}>Profile</MenuItem>
+      <MenuItem
+        onClick={() => {
+          navigate('/home/user-profile')
+          handleMenuClose()
+        }}
+      >
+        Profile
+      </MenuItem>
       <MenuItem onClick={logOut}>Log Out</MenuItem>
     </Menu>
-  );
+  )
 
-  const mobileMenuId = 'primary-search-account-menu-mobile';
+  const mobileMenuId = 'primary-search-account-menu-mobile'
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -599,7 +616,12 @@ const Navbar = () => {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem onClick={() => { navigate('/home/user-profile'); handleMenuClose(); }}>
+      <MenuItem
+        onClick={() => {
+          navigate('/home/user-profile')
+          handleMenuClose()
+        }}
+      >
         <IconButton
           size='large'
           aria-label='account of current user'
@@ -625,18 +647,14 @@ const Navbar = () => {
         <p>Logout</p>
       </MenuItem>
     </Menu>
-  );
+  )
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static' sx={{ backgroundColor: '#1E2A38' }}>
         <Toolbar>
-          <Link to="/home">
-            <img
-              className='h-20 -mx-1'
-              src={logo}
-              alt="msit-logo"
-            />
+          <Link to='/home'>
+            <img className='h-20 -mx-1' src={logo} alt='msit-logo' />
           </Link>
           <Search>
             <SearchIconWrapper>
@@ -653,7 +671,11 @@ const Navbar = () => {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size='large' aria-label='show 4 new mails' color='inherit'>
+            <IconButton
+              size='large'
+              aria-label='show 4 new mails'
+              color='inherit'
+            >
               <Badge badgeContent={0} color='error'>
                 {/* <MailIcon sx={{ color: '#D1D5DB' }} /> */}
               </Badge>
@@ -697,60 +719,59 @@ const Navbar = () => {
       {renderMobileMenu}
       {renderMenu}
       {notificationOpen && (
-  <Box
-    sx={{
-      position: 'absolute',
-      top: '60px',
-      right: '20px',
-      width: '300px',
-      backgroundColor: '#1E2A38',
-      color: '#D1D5DB',
-      borderRadius: '8px',
-      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-      zIndex: 1000,
-      p: 2,
-      maxHeight: '250px',
-      overflowY: 'scroll',  
-    }}
-  >
-    {notifications.length > 0 ? (
-      <>
-        {notifications.map((notification, index) => (
-          <Box key={index} sx={{ mb: 2 }}>
-            <Typography variant='body2' color='#D1D5DB'>
-              {notification.message}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '60px',
+            right: '20px',
+            width: '300px',
+            backgroundColor: '#1E2A38',
+            color: '#D1D5DB',
+            borderRadius: '8px',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+            zIndex: 1000,
+            p: 2,
+            maxHeight: '250px',
+            overflowY: 'scroll',
+          }}
+        >
+          {notifications.length > 0 ? (
+            <>
+              {notifications.map((notification, index) => (
+                <Box key={index} sx={{ mb: 2 }}>
+                  <Typography variant='body2' color='#D1D5DB'>
+                    {notification.message}
+                  </Typography>
+                  <Typography variant='caption' color='#9CA3AF'>
+                    {new Date(notification.createdAt).toLocaleString()}
+                  </Typography>
+                </Box>
+              ))}
+              <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                <button
+                  onClick={handleMarkAllAsRead}
+                  style={{
+                    backgroundColor: '#D1D5DB',
+                    color: '#1E2A38',
+                    padding: '6px 12px',
+                    borderRadius: '4px',
+                    border: 'none',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Mark All as Read
+                </button>
+              </Box>
+            </>
+          ) : (
+            <Typography variant='body2' color='#9CA3AF'>
+              No notifications.
             </Typography>
-            <Typography variant='caption' color='#9CA3AF'>
-              {new Date(notification.createdAt).toLocaleString()}
-            </Typography>
-          </Box>
-        ))}
-        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-          <button
-            onClick={handleMarkAllAsRead}
-            style={{
-              backgroundColor: '#D1D5DB',
-              color: '#1E2A38',
-              padding: '6px 12px',
-              borderRadius: '4px',
-              border: 'none',
-              cursor: 'pointer',
-            }}
-          >
-            Mark All as Read
-          </button>
+          )}
         </Box>
-      </>
-    ) : (
-      <Typography variant='body2' color='#9CA3AF'>
-        No notifications.
-      </Typography>
-    )}
-  </Box>
-)}
-
+      )}
     </Box>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
