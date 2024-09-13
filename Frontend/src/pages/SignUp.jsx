@@ -241,17 +241,17 @@ const SignUp = () => {
                       }}
                     >
                       <MenuItem value="CSE-1">CSE-1</MenuItem>
-                      <MenuItem value="CSE-1">CSE-2</MenuItem>
-                      <MenuItem value="CSE-1">CSE-3</MenuItem>
+                      <MenuItem value="CSE-2">CSE-2</MenuItem>
+                      <MenuItem value="CSE-3">CSE-3</MenuItem>
                       <MenuItem value="IT-1">IT-1</MenuItem>
-                      <MenuItem value="IT-1">IT-2</MenuItem>
-                      <MenuItem value="IT-1">IT-3</MenuItem>
+                      <MenuItem value="IT-2">IT-2</MenuItem>
+                      <MenuItem value="IT-3">IT-3</MenuItem>
                       <MenuItem value="ECE-1">ECE-1</MenuItem>
-                      <MenuItem value="ECE-1">ECE-2</MenuItem>
-                      <MenuItem value="ECE-1">ECE-3</MenuItem>
-                      <MenuItem value="ECE-1">EEE-1</MenuItem>
-                      <MenuItem value="ECE-1">EEE-2</MenuItem>
-                      <MenuItem value="ECE-1">EEE-3</MenuItem>
+                      <MenuItem value="ECE-2">ECE-2</MenuItem>
+                      <MenuItem value="ECE-3">ECE-3</MenuItem>
+                      <MenuItem value="EEE-1">EEE-1</MenuItem>
+                      <MenuItem value="EEE-2">EEE-2</MenuItem>
+                      <MenuItem value="EEE-3">EEE-3</MenuItem>
                     </Select>
                   </FormControl>
                 ) : (
