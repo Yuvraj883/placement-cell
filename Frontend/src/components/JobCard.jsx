@@ -159,13 +159,13 @@ const JobCard = ({ job }) => {
   return (
     <CardContainer>
       <JobImage>
-        {job.imageURL ? <img src={job.imageURL} alt={job.jobTitle} /> : job.jobTitle.charAt(0)}
+        {job.imageURL ? <img src={job?.imageURL} alt={job?.jobTitle} /> : job?.jobTitle.charAt(0)}
       </JobImage>
       <div>
-        <JobTitle>{job.jobTitle}</JobTitle>
-        <CompanyName>{job.companyName}</CompanyName>
-        <JobDescription>{job.jobDescription}</JobDescription>
-        <p style={{ color: '#9e9e9e', fontSize: '0.85rem' }}>{timeAgo(job.createdAt)}</p>
+        <JobTitle>{job?.jobTitle}</JobTitle>
+        <CompanyName>{job?.companyName}</CompanyName>
+        <JobDescription>{job?.jobDescription}</JobDescription>
+        <p style={{ color: '#9e9e9e', fontSize: '0.85rem' }}>{timeAgo(job?.createdAt)}</p>
       </div>
       <InfoContainer>
         <JobDetails>
@@ -173,7 +173,7 @@ const JobCard = ({ job }) => {
           <Applicants>Applicants: {job?.applicants?.length}</Applicants>
         </JobDetails>
        <Link to={`/job/${job._id}`}>
-       
+
        <ApplyButton startIcon={<ArrowForward />} >
           View Job
         </ApplyButton>
