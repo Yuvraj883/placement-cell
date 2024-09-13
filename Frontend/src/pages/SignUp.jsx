@@ -37,6 +37,7 @@ const SignUp = () => {
     contactNumber: '',
     degree: 'Bachelor of Technology',
     course: '',
+    classes: '', 
     yearOfPassing: '',
     cgpa: '',
     twelfthPercentage: '',
@@ -84,7 +85,7 @@ const SignUp = () => {
         },
       };
 
-      const { data } = await axios.post('http://localhost:8000/api/users/sign-up', formData, config);
+      const { data } = await axios.post('https://placement-cell-iczn.onrender.com/api/users/sign-up', formData, config);
       const { _id, token, ...rest } = data;
 
       if (_id) {
@@ -210,6 +211,49 @@ const SignUp = () => {
                       <MenuItem value="Electrical Engineering">Electrical Engineering</MenuItem>
                     </Select>
                   </FormControl>
+                ) : key === 'classes' ? (
+                  <FormControl
+                    key={key}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    style={{
+                      width: '100%',
+                      maxWidth: '585px',
+                      marginBottom: '16px',
+                      backgroundColor: '#444',
+                    }}
+                  >
+                    <InputLabel style={{ color: '#f5f5f5' }}>Class</InputLabel>
+                    <Select
+                      name="classes"
+                      value={formData.classes}
+                      onChange={handleChange}
+                      style={{ color: '#f5f5f5' }}
+                      label="Class"
+                      MenuProps={{
+                        PaperProps: {
+                          style: {
+                            backgroundColor: '#444',
+                            color: '#f5f5f5',
+                          },
+                        },
+                      }}
+                    >
+                      <MenuItem value="CSE-1">CSE-1</MenuItem>
+                      <MenuItem value="CSE-1">CSE-2</MenuItem>
+                      <MenuItem value="CSE-1">CSE-3</MenuItem>
+                      <MenuItem value="IT-1">IT-1</MenuItem>
+                      <MenuItem value="IT-1">IT-2</MenuItem>
+                      <MenuItem value="IT-1">IT-3</MenuItem>
+                      <MenuItem value="ECE-1">ECE-1</MenuItem>
+                      <MenuItem value="ECE-1">ECE-2</MenuItem>
+                      <MenuItem value="ECE-1">ECE-3</MenuItem>
+                      <MenuItem value="ECE-1">EEE-1</MenuItem>
+                      <MenuItem value="ECE-1">EEE-2</MenuItem>
+                      <MenuItem value="ECE-1">EEE-3</MenuItem>
+                    </Select>
+                  </FormControl>
                 ) : (
                   <TextField
                     key={key}
@@ -219,15 +263,15 @@ const SignUp = () => {
                     style={{
                       width: '100%',
                       maxWidth: '585px',
-                      marginBottom: '16px', 
+                      marginBottom: '16px',
                       backgroundColor: '#444',
                       color: '#f5f5f5',
                       borderColor: '#666',
                     }}
                     label={
-                      key === 'linkedIn' ? 'LinkedIn' :
+                      key === 'linkedin' ? 'LinkedIn' :
                       key === 'github' ? 'GitHub' :
-                      key === 'leetcode' ? 'LeetCode' :
+                      key === 'leetCode' ? 'LeetCode' :
                       key.replace(/([A-Z])/g, ' $1').trim()
                     }
                     name={key}

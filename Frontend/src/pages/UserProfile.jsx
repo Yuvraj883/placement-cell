@@ -68,6 +68,9 @@ const UserProfile = () => {
                 <strong>Course:</strong> {user.course || 'Loading...'}
               </Typography>
               <Typography variant="body1" style={{ color: '#555555', marginBottom: '8px' }}>
+                <strong>Class:</strong> {user.classes || 'Loading...'}
+              </Typography>
+              <Typography variant="body1" style={{ color: '#555555', marginBottom: '8px' }}>
                 <strong>CGPA:</strong> {user.cgpa || 'Loading...'}
               </Typography>
 
@@ -95,6 +98,7 @@ const UserProfile = () => {
                   <Typography variant="body1" style={{ color: '#555555', marginBottom: '8px' }}>
                     <strong>Active Backlogs:</strong> {user.activeBacklogs || 'None'}
                   </Typography>
+                  
                   <Typography variant="body1" style={{ color: '#555555', marginBottom: '8px' }}>
                     <strong>Resume URL:</strong> <a href={user.resumeURL} target="_blank" rel="noopener noreferrer">{user.resumeURL || 'Not provided'}</a>
                   </Typography>

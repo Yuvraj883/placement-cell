@@ -5,7 +5,7 @@ import generateToken from '../config/generateToken.js';
 
 const signup = asyncHandler(async (req, res) => {
     const {
-        username, email, fullname, password, dob, degree, course, twelfthPercentage, diplomaPercentage,
+        username, email, fullname, password, dob, degree, course,classes, twelfthPercentage, diplomaPercentage,
         nationality, cgpa, address, school12th, tenthPercentage, gapYear, yearOfPassing, activeBacklogs,
         contactNumber, linkedin, github, leetCode
     } = req.body;
@@ -25,6 +25,7 @@ const signup = asyncHandler(async (req, res) => {
             dob,
             degree,
             course,
+            classes,
             twelfthPercentage,
             diplomaPercentage,
             nationality,
@@ -53,6 +54,7 @@ const signup = asyncHandler(async (req, res) => {
             twelfthPercentage: user.twelfthPercentage,
             diplomaPercentage: user.diplomaPercentage,
             nationality: user.nationality,
+            classes:user.classes,
             cgpa: user.cgpa,
             address: user.address,
             school12th: user.school12th,

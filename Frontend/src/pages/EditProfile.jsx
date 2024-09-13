@@ -23,6 +23,7 @@ const EditProfile = () => {
             dob: response.data.dob ? response.data.dob.split('T')[0] : '',
             degree: response.data.degree || '',
             course: response.data.course || '',
+            classes:response.data.classes||'',
             twelfthPercentage: response.data.twelfthPercentage || '',
             diplomaPercentage: response.data.diplomaPercentage || '',
             nationality: response.data.nationality || '',
@@ -112,6 +113,14 @@ const EditProfile = () => {
               fullWidth
               name="course"
               value={userData.course || ''}
+              onChange={handleInputChange}
+              style={{ marginBottom: '16px' }}
+            />
+            <TextField
+              label="Classes"
+              fullWidth
+              name="classes"
+              value={userData.classes || ''}
               onChange={handleInputChange}
               style={{ marginBottom: '16px' }}
             />

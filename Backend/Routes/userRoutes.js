@@ -20,7 +20,7 @@ router.get('/profile/:userId', protect,async (req, res) => {
     const user = await User.findById(req.params.userId)
       .populate('appliedJobs', 'jobTitle companyName location type imageURL ctc')
       //.select('username fullname email dob course degree resumeURL appliedJobs');
-      .select('fullname email dob degree course twelfthPercentage diplomaPercentage nationality cgpa address school12th tenthPercentage gapYear yearOfPassing activeBacklogs contactNumber resumeURL linkedin github leetCode');
+      .select('fullname email dob degree course twelfthPercentage classes diplomaPercentage nationality cgpa address school12th tenthPercentage gapYear yearOfPassing activeBacklogs contactNumber resumeURL linkedin github leetCode');
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
@@ -86,7 +86,7 @@ router.post('/apply', async (req, res) => {
 
 router.get('/find', async (req, res) => {
   try {
-    const users = await User.find().select('fullname email dob degree course twelfthPercentage diplomaPercentage nationality cgpa address school12th tenthPercentage gapYear yearOfPassing activeBacklogs contactNumber resumeURL leetCode linkedin github');
+    const users = await User.find().select('fullname email dob classes degree course twelfthPercentage diplomaPercentage nationality cgpa address school12th tenthPercentage gapYear yearOfPassing activeBacklogs contactNumber resumeURL leetCode linkedin github');
     res.json(users);
   } catch (error) {
     console.error('Error fetching users:', error);

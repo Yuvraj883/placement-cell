@@ -40,6 +40,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    classes: {
+        type: String,
+        required: true
+    },
     twelfthPercentage: {
         type: Number
     },
