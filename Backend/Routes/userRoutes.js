@@ -8,7 +8,7 @@ import { protect, adminOnly } from '../middlewares/authMiddleware.js';
 const router = express.Router();
 
 router.get('/', (req, res)=>{
-  res.send("Hola Amigo!!");//comment
+  res.send("Hola Amigo!!");//deploying
 });
 
 router.post('/sign-up', signup);
