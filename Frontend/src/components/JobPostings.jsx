@@ -40,7 +40,7 @@ const JobPostings = () => {
         <p className="text-center text-gray-500">No job postings available.</p> // Handle case when no jobs are available
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {jobPostings.map((job) => (
+          {jobPostings?.map((job) => (
             <JobCard key={job?._id} job={job} /> // Use job._id as key
           ))}
         </div>
